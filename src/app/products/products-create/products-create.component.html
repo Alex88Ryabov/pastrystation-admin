@@ -1,1 +1,27 @@
-<p>products-create works!</p>
+<form class="product-create__form" [formGroup]="form">
+    
+        <label class="product-create__label product-create__label--text">
+            Название
+            <app-input [parentFormGroup]="form" [controlName]="'name'"></app-input>
+        </label>
+        <label class="product-create__label product-create__label--text">
+            Категория
+            <app-input [parentFormGroup]="form" [controlName]="'category'"></app-input>
+        </label>
+        <label class="product-create__label product-create__label--text">
+            Цена
+            <app-input [parentFormGroup]="form" [controlName]="'price'"></app-input>
+        </label>
+        <label class="product-create__label" (change)="flagToggle = !flagToggle">
+            Картинка
+            <span class="product-create__button" [style.display]="flagToggle ? 'block' : 'none'"></span>
+            <app-input-file [parentFormGroup]="form" [controlName]="'image'"></app-input-file>
+        </label>
+        <label class="product-create__label" (change)="toggle = !toggle">
+            Иконка
+            <span class="product-create__button" [style.display]="toggle ? 'block' : 'none'"></span>
+            <app-input-file [parentFormGroup]="form" [controlName]="'icon'"></app-input-file>
+        </label>
+    
+    <button class="product-create__submit" type="submit" [disabled]="form.invalid">Создать</button>
+</form>

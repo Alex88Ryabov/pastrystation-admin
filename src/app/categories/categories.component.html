@@ -1,14 +1,11 @@
-<a class="links__create" routerLink="create">Создать</a>
-<ul>
+<a class="button-deffault create" routerLink="create">Создать</a>
+<ul class="categories__list">
 
-    <!-- <ng-container *ngFor="let item of categories">
-        <img src="{{item.imageFile}}" alt="">
-    </ng-container> -->
-    <li *ngFor="let category of categories">
-        <h3>{{category.name}}</h3>
+    <li class="categories__item" *ngFor="let category of categories">
+        <h3 class="categories__title">{{category.name}}</h3>
 
-        <a class="links__edit" routerLink="edit/{{category.id}}">Редактировать</a>
-        <app-button type="button" value="Удалить"></app-button>
+        <a class="button-deffault " routerLink="edit/{{category.id}}">Редактировать</a>
+        <a class="button-deffault button-deffault--warning">Удалить</a>
 
     </li>
 </ul>

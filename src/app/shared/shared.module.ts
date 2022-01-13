@@ -7,7 +7,6 @@ import { HeaderComponent } from './layouts/partials/header/header.component';
 import { SidebarComponent } from './layouts/partials/sidebar/sidebar.component';
 import { InputComponent } from './components/forms/input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ButtonComponent } from './components/forms/button/button.component';
 import { InputFileComponent } from './components/forms/input-file/input-file.component';
 
 
@@ -19,7 +18,6 @@ import { InputFileComponent } from './components/forms/input-file/input-file.com
     HeaderComponent,
     SidebarComponent,
     InputComponent,
-    ButtonComponent,
     InputFileComponent
   ],
   imports: [
@@ -33,7 +31,6 @@ import { InputFileComponent } from './components/forms/input-file/input-file.com
     ProductsComponent,
     HeaderComponent,
     SidebarComponent,
-    ButtonComponent,
     InputComponent,
     InputFileComponent
   ]

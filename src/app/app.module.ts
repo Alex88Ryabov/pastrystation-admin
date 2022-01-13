@@ -8,10 +8,11 @@ import { CategoriesModule } from './categories/categories.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ProductsModule } from './products/products.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AuthorizationComponent } from './authorization/authorization.component';
 @NgModule({
   declarations: [
     AppComponent,
+    AuthorizationComponent,
   ],
   imports: [
     BrowserModule,
