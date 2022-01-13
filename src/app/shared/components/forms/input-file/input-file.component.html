@@ -1,0 +1,8 @@
+<ng-container [formGroup]="parentFormGroup">
+    <input class="input-file" type="file" (change)="onFileChange($event)">
+    
+        <p class="input-file__name">{{fileName}}</p>
+        <img class="input-file__image" src="{{parentFormGroup.get(controlName).value.file}}">
+    
+
+</ng-container>

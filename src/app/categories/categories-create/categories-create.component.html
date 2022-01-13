@@ -1,0 +1,14 @@
+<form class="category-create__form" [formGroup]="form" (submit)="onSubmit()">
+    <div class="category-create__wrapper">
+        <label class="category-create__label">
+            Выбрать название
+            <app-input [parentFormGroup]="form" [controlName]="'name'"></app-input>
+        </label>
+        <label class="category-create__label" (change)="flagToggle = !flagToggle">
+            Выбрать картинку
+            <div class="category-create__button" [style.display]="flagToggle ? 'block' : 'none'"></div>    
+            <app-input-file [parentFormGroup]="form" [controlName]="'image'"></app-input-file>
+        </label>
+    </div>
+    <button class="category-create__submit" type="submit" [disabled]="form.invalid">Создать</button>
+</form>

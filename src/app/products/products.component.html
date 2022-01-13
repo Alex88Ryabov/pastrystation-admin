@@ -1,0 +1,9 @@
+<a class="links__create" routerLink="create">Создать</a>
+<ul>
+    <li *ngFor="let product of products">
+        <h3>{{product.title}}</h3>
+        <a class="links__edit" routerLink="edit/{{product.id}}">Редактировать</a>
+        <app-button type="button" value="Удалить"></app-button>
+
+    </li>
+</ul>

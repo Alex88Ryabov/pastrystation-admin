@@ -1,0 +1,34 @@
+<div class="product-edit">
+    <label class="product-edit__label product-edit__label--file">
+        Изменить картинку продукта
+        <app-input type="file" class="product-edit__input product-edit__input--file"></app-input>
+        <img src="../../../assets/images/cappuccino.jpg" alt="">
+    </label>
+    <label class="product-edit__label product-edit__label--file">
+        Изменить иконку категории
+        <app-input type="file" class="product-edit__input product-edit__input--file"></app-input>
+        <img src="../../../assets/images/cake.png" alt="">
+    </label>
+    
+
+    <label class="product-edit__label product-edit__label--text">
+        Изменить название продукта
+        <app-input type="text" title="торты" class="product-edit__input product-edit__input--text"></app-input>
+    </label>
+
+    <label class="product-edit__label product-edit__label--text">
+        Изменить цену продукта
+        <app-input type="text" title="торты" class="product-edit__input product-edit__input--text"></app-input>
+    </label>
+
+    <label class="product-edit__label product-edit__label--text">
+        Изменить категорию продукта
+        <div class="product__input-wrap" *ngFor="let category of categories">
+            <label class="product-edit__label--radio">
+                {{category.name}}
+                <app-input type="radio"  class="product-edit__input product-edit__input--text" name="category"></app-input>
+            </label>
+        </div>
+            
+    </label>
+</div>

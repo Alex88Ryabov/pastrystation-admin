@@ -1,0 +1,85 @@
+.category-create
+    &__form
+        display: flex
+        flex-direction: column
+        align-items: center
+        width: fit-content
+        padding: 20px
+        margin-top: 15px
+        margin-left: 15px
+        border-radius: 4px
+        background-color: #e6e6e6
+    &__wrapper
+        display: flex
+    &__label
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding: 20px 20px 0 20px
+        border-radius: 4px
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)
+        &:not(:last-child)
+            margin-right: 20px
+            
+        
+    &__button
+        display: block
+        position: relative
+        width: 100px
+        height: 100px
+        margin-top: 10px
+        cursor: pointer
+        background-color: #fff
+        border-radius: 4px
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)
+        &::before
+            display: block
+            content: ''
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            width: 1px
+            height: 50px
+            background-color: #868484
+        &::after
+            display: block
+            content: ''
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%) rotate(90deg)
+            width: 1px
+            height: 50px
+            background-color: #868484
+    &__submit
+        display: block
+        margin-top: 20px
+        padding: 15px 0
+        width: 40%
+        font-size: 18px
+        color: #fff
+        background-color: #3bdf51
+        border: none
+        outline: none
+        border-radius: 4px
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)
+        &:hover
+            background-color: #41f759
+            
+        &:disabled
+            background-color: grey
+            color: #49494d
+
+:host::ng-deep input[type=file]
+    display: none
+
+:host::ng-deep input[type=text]
+    margin-top: 20px
+    padding: 5px
+    border: none
+    outline: none
+    border-radius: 4px
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)
+
+        
