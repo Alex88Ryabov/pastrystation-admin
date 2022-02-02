@@ -1,30 +1,70 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {environment} from 'src/environments/environment';
 
 @Component({
-  selector: 'app-categories-edit',
-  templateUrl: './categories-edit.component.html',
-  styleUrls: ['./categories-edit.component.sass']
+    selector: 'app-categories-edit',
+    templateUrl: './categories-edit.component.html',
+    styleUrls: ['./categories-edit.component.sass']
 })
 export class CategoriesEditComponent implements OnInit {
+    currentCategoryId: string | null = null;
+    form: FormGroup = new FormGroup({});
+    isInitForm: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private http: HttpClient) { }
+    fileName: any;
+    file: any;
 
-  ngOnInit(): void {
+    constructor(
+        private route: ActivatedRoute,
+        private http: HttpClient,
+        private router: Router) {
+    }
 
-    console.log(this.route.snapshot.paramMap.get('id'));
+    ngOnInit(): void {
+        this.currentCategoryId = this.route.snapshot.paramMap.get('id');
+        this.http.get(`${environment.apiUrl}/api/categories/${this.currentCategoryId}`)
+            .subscribe((res: any) => {
+                console.log(res);
+                this.form.addControl('name', new FormControl(res.name));
+                this.form.addControl('image', new FormControl(''));
 
-    // this.http.post('get-category',
-    //   {
-    //     id: this.route.snapshot.paramMap.get('id')
-    //   }
-    // ).subscribe(category => {
+                this.form.controls['name'].setValidators([Validators.required]);
+                this.form.controls['image'].setValidators([Validators.required])
 
-    // })
+                this.fileName = res.imageName;
+                this.file = res.imageFile;
+
+                this.form.patchValue({
+                    image: {
+                        file: this.file,
+                        fileName: this.fileName
+                    }
+                });
+
+                this.isInitForm = true;
+            });
+
+        // this.http.post('get-category',
+        //   {
+        //     id: this.route.snapshot.paramMap.get('id')
+        //   }
+        // ).subscribe(category => {
+
+        // })
 
 
-  }
+    }
+
+    onSubmit(): void {
+        const formData = this.form.getRawValue();
+        this.http.patch(`${environment.apiUrl}/api/categories/${this.currentCategoryId}`, formData)
+            .subscribe((res: any) => {
+                alert(res.message)
+                this.router.navigate(['categories']).finally();
+            },
+                error => console.log(error))
+    }
 }

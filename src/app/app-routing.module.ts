@@ -6,12 +6,15 @@ import { ProductsCreateComponent } from './products/products-create/products-cre
 import { ProductsEditComponent } from './products/products-edit/products-edit.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesCreateComponent, CategoriesEditComponent } from "./categories/index";
+import { AuthorizationComponent } from './authorization/authorization.component';
+import { AuthGuard } from './shared/services/auth.guard';
 const routes: Routes = [
+  { path: '', redirectTo: '/authorization', pathMatch: 'full' },
   {
-    path: '',
+    path: '', 
     component: LayoutsComponent,
+    canActivate: [AuthGuard],
     children: [
-      { path: '', redirectTo: '/categories', pathMatch: 'full' },
       { path: 'products', component: ProductsComponent },
       { path: 'products/create', component: ProductsCreateComponent },
       { path: 'products/edit/:id', component: ProductsEditComponent },
@@ -20,6 +23,10 @@ const routes: Routes = [
       { path: 'categories/edit/:id', component: CategoriesEditComponent }
     ]
   },
+  {
+    path: 'authorization', component: AuthorizationComponent
+  }
+  
 
 
 

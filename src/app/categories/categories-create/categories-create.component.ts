@@ -1,7 +1,8 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { environment } from 'src/environments/environment';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from 'src/environments/environment';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -10,15 +11,16 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./categories-create.component.sass']
 })
 export class CategoriesCreateComponent implements OnInit {
-  
-  flagToggle = true;
+
   form: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
     image: new FormControl('', [Validators.required])
   });
+
   categories: any;
   isLoadCategories: any;
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.http.get(`${environment.apiUrl}/api/categories`)
@@ -34,8 +36,10 @@ export class CategoriesCreateComponent implements OnInit {
     const formData = this.form.getRawValue();
     this.http.post(`${environment.apiUrl}/api/categories`, formData)
       .subscribe((res: any) => {
-        console.log(res);
+        alert(res.message);
+        this.router.navigate(['categories']).finally();
       })
   }
 
+  
 }

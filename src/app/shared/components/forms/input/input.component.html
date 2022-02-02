@@ -1,5 +1,9 @@
 <ng-container [formGroup]="parentFormGroup">
-    <input type="text"
-           formControlName="{{controlName}}">
+    <label class="input">
+        <span class="input__label">{{label}}</span>
 
+        <input type="text"
+               formControlName="{{controlName}}"
+               placeholder="{{placeholder}}">
+    </label>
 </ng-container>

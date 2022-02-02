@@ -5,20 +5,35 @@ body
     margin: 0
     font-family: "Stratos-regular", sans-serif
 
-.button-deffault
-    padding: 8px 
+.container
+    padding: 25px
+
+.button
+    padding: 8px 10px
+    min-width: 120px
+    height: auto
+    font-size: 18px
+    text-align: center
     border-radius: 4px
     text-decoration: none
     color: white
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)   
+    border: none
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25)
     background-color: #24ac02
+    cursor: pointer
     &:hover
         background-color: #2cd801
+    &:disabled
+      background-color: grey
+      color: #49494d
     &--warning
         background-color: #d84040
         &:hover
             background-color: #fd4747
-
+    &--margin
+        margin: 15px
+    &--small
+        min-width: 0
 .create
     display: inline-block
     margin-top: 10px

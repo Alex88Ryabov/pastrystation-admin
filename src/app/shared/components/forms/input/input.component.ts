@@ -11,6 +11,8 @@ export class InputComponent implements OnInit {
 
   @Input() parentFormGroup: any;
   @Input() controlName: any;
+  @Input() placeholder: any;
+  @Input() label: any;
 
 
 

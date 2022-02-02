@@ -1,27 +1,103 @@
-<form class="product-create__form" [formGroup]="form">
-    
-        <label class="product-create__label product-create__label--text">
-            Название
-            <app-input [parentFormGroup]="form" [controlName]="'name'"></app-input>
-        </label>
-        <label class="product-create__label product-create__label--text">
-            Категория
-            <app-input [parentFormGroup]="form" [controlName]="'category'"></app-input>
-        </label>
-        <label class="product-create__label product-create__label--text">
-            Цена
-            <app-input [parentFormGroup]="form" [controlName]="'price'"></app-input>
-        </label>
-        <label class="product-create__label" (change)="flagToggle = !flagToggle">
-            Картинка
-            <span class="product-create__button" [style.display]="flagToggle ? 'block' : 'none'"></span>
-            <app-input-file [parentFormGroup]="form" [controlName]="'image'"></app-input-file>
-        </label>
-        <label class="product-create__label" (change)="toggle = !toggle">
-            Иконка
-            <span class="product-create__button" [style.display]="toggle ? 'block' : 'none'"></span>
-            <app-input-file [parentFormGroup]="form" [controlName]="'icon'"></app-input-file>
-        </label>
-    
-    <button class="product-create__submit" type="submit" [disabled]="form.invalid">Создать</button>
-</form>
+<ng-container *ngIf="form">
+    <div class="products-create container">
+        <form class="products-create__form"
+              [formGroup]="form"
+              (submit)="onSubmit()">
+
+            <button class="products-create__btn-submit button"
+                    type="submit"
+                    [disabled]="form.invalid">Создать
+            </button>
+
+            <div class="products-create__wrapper">
+
+                <div class="products-create__block-wrap">
+                    <div class="products-create__wrap">
+                        <app-input [parentFormGroup]="form"
+                                   [controlName]="'name'"
+                                   label="Название">
+
+                        </app-input>
+                    </div>
+                    <app-input [parentFormGroup]="form"
+                               [controlName]="'price'"
+                               label="Цена">
+
+                    </app-input>
+
+                </div>
+
+                <div class="products-create__block-wrap">
+                    <div class="products-create__wrap">
+
+                        <app-textarea
+                                label="Описание товара"
+                                placeholder="Введите описание..."
+                                [controlName]="'description'"
+                                [parentFormGroup]="form">
+                        </app-textarea>
+                    </div>
+
+
+                    <ng-container *ngIf="categories">
+                        <app-input-file [parentFormGroup]="form"
+                                        [controlName]="'image'"
+                                        label="Картинка">
+                        </app-input-file>
+                    </ng-container>
+                </div>
+                <div class="products-create__block-wrap">
+                    <ng-container *ngIf="categories">
+                        <app-select
+                                label="Категории"
+                                [controlName]="'categoryId'"
+                                [parentFormGroup]="form"
+                                [list]="categories"
+                        ></app-select>
+                    </ng-container>
+                </div>
+                <div class="info-form__title">
+                    <p>Доп. описание</p>
+                    <button type="button" class="button button--small" (click)="addNewAddressGroup()">Добавить</button>
+                </div>
+                <div class="info-form__wrap">
+                    <div class="products-create__block-wrap">
+
+                        <ng-container *ngIf="form.get('info')">
+                            <div formArrayName="info">
+                                <ng-container *ngFor="let infoGroup of infoFormGroups; let i = index;">
+                                    <form class="products-create__info-form" [formGroupName]="i">
+
+                                        <div class="products-create__block-wrap">
+                                            <div class="products-create__wrap">
+
+                                                <app-input [parentFormGroup]="infoGroup"
+                                                           [controlName]="'title'"
+                                                           label="Заголовок">
+                                                </app-input>
+                                            </div>
+                                            <div class="products-create__wrap">
+
+                                                <app-input [parentFormGroup]="infoGroup"
+                                                           [controlName]="'text'"
+                                                           label="Текст">
+                                                </app-input>
+                                            </div>
+
+                                            <button (click)="deleteAddressGroup(i)"
+                                                    class="button button--small button--warning">Удалить
+                                            </button>
+                                        </div>
+                                    </form>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</ng-container>

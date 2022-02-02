@@ -1,0 +1,12 @@
+<ng-container [formGroup]="parentFormGroup">
+    <label class="textarea">
+        <span class="textarea__label">{{label}}</span>
+
+        <textarea class="textarea__field" type="text"
+               formControlName="{{controlName}}"
+               placeholder="{{placeholder}}"
+               cols="20"
+               rows="5">
+        </textarea>
+    </label>
+</ng-container>

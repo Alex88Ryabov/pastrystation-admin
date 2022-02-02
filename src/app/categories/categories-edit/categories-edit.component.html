@@ -1,13 +1,28 @@
-<div class="category-edit">
-    <label class="category-edit__label category-edit__label--file">
-        Изменить картинку категории
-        <app-input type="file" class="category-edit__input category-edit__input--file"></app-input>
-        <img src="../../../assets/images/cake.png" alt="">
-    </label>
+<ng-container *ngIf="isInitForm">
 
 
-    <label class="category-edit__label category-edit__label--text">
-        Изменить название категории
-        <app-input type="text" title="торты" class="category-edit__input category-edit__input--text"></app-input>
-    </label>
-</div>
+    <form class="categories-edit" [formGroup]="form" (submit)="onSubmit()">
+        <button class="button button--margin" type="submit" [disabled]="form.invalid">Сохранить</button>
+        <div class="categories-edit__wrapper">
+            <div class="categories-edit__wrap">
+                <app-input [parentFormGroup]="form"
+                           [controlName]="'name'"
+                           label="Название">
+                </app-input>
+            </div>
+            <div class="categories-edit__wrap">
+
+                <app-input-file [parentFormGroup]="form"
+                                [controlName]="'image'"
+                                [file]="file"
+                                [fileName]="fileName"
+                                label="Картинка">
+                </app-input-file>
+
+            </div>
+
+        </div>
+
+
+    </form>
+</ng-container>

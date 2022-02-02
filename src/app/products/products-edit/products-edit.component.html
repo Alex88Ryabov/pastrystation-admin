@@ -1,34 +1,89 @@
-<div class="product-edit">
-    <label class="product-edit__label product-edit__label--file">
-        Изменить картинку продукта
-        <app-input type="file" class="product-edit__input product-edit__input--file"></app-input>
-        <img src="../../../assets/images/cappuccino.jpg" alt="">
-    </label>
-    <label class="product-edit__label product-edit__label--file">
-        Изменить иконку категории
-        <app-input type="file" class="product-edit__input product-edit__input--file"></app-input>
-        <img src="../../../assets/images/cake.png" alt="">
-    </label>
-    
+<ng-container *ngIf="isInitForm">
+    <div class="products-edit container">
+        <form class="products-edit__form"
+              [formGroup]="form"
+              (submit)="onSubmit()">
+            <button class="products-edit__btn-submit button"
+                    type="submit"
+                    [disabled]="form.invalid">
+                Сохранить
+            </button>
 
-    <label class="product-edit__label product-edit__label--text">
-        Изменить название продукта
-        <app-input type="text" title="торты" class="product-edit__input product-edit__input--text"></app-input>
-    </label>
+            <div class="products-edit__wrapper">
+                <div class="products-edit__block-wrap">
+                    <div class="products-edit__wrap">
+                        <app-input [parentFormGroup]="form"
+                                   [controlName]="'name'"
+                                   label="Заголовок">
+                        </app-input>
+                    </div>
+                    <app-input [parentFormGroup]="form"
+                               [controlName]="'price'"
+                               label="Цена">
 
-    <label class="product-edit__label product-edit__label--text">
-        Изменить цену продукта
-        <app-input type="text" title="торты" class="product-edit__input product-edit__input--text"></app-input>
-    </label>
+                    </app-input>
+                </div>
 
-    <label class="product-edit__label product-edit__label--text">
-        Изменить категорию продукта
-        <div class="product__input-wrap" *ngFor="let category of categories">
-            <label class="product-edit__label--radio">
-                {{category.name}}
-                <app-input type="radio"  class="product-edit__input product-edit__input--text" name="category"></app-input>
-            </label>
-        </div>
-            
-    </label>
-</div>
+
+                <div class="products-edit__block-wrap">
+                    <div class="products-edit__wrap">
+                        <app-textarea
+                                label="Описание товара"
+                                placeholder="Введите описание..."
+                                [controlName]="'description'"
+                                [parentFormGroup]="form">
+                        </app-textarea>
+                    </div>
+                    <app-input-file [parentFormGroup]="form"
+                                    [controlName]="'image'"
+                                    [file]="file"
+                                    [fileName]="fileName"
+                                    label="Картинка">
+                    </app-input-file>
+                </div>
+                <div class="products-edit__block-wrap">
+
+                    <app-select label="Кaтегория"
+                                [controlName]="'categoryId'"
+                                [parentFormGroup]="form"
+                                [list]="categories">
+
+                    </app-select>
+                </div>
+                <div class="info-form__title">
+                    <p>Доп. описание</p>
+                    <button type="button" class="button button--small" (click)="addNewAddressGroup()">Добавить</button>
+                </div>
+                <div class="info-form__wrap">
+                    <div class="products-edit__block-wrap">
+                        <div formArrayName="info">
+                            <ng-container *ngFor="let infoGroup of infoFormGroups; let i = index;">
+                                <form class="products-edit__info-form" [formGroupName]="i">
+                                    <div class="products-edit__block-wrap">
+                                        <div class="products-edit__wrap">
+                                            <app-input [parentFormGroup]="infoGroup"
+                                                       [controlName]="'title'"
+                                                       label="Название">
+                                            </app-input>
+                                        </div>
+                                        <div class="products-edit__wrap">
+                                            <app-input [parentFormGroup]="infoGroup"
+                                                       [controlName]="'text'"
+                                                       label="Текст">
+                                            </app-input>
+                                        </div>
+                                        <button class="button button--small button--warning"
+                                                (click)="deleteAddressGroup(i)">
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </form>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</ng-container>

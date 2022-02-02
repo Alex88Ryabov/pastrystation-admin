@@ -1,8 +1,8 @@
-<a class="button-deffault create" routerLink="create">Создать</a>
+<a class="button create" routerLink="create">Создать</a>
 <ul class="products__list">
     <li class="products__item" *ngFor="let product of products">
-        <h3 class="products__title">{{product.title}}</h3>
-        <a class="button-deffault" routerLink="edit/{{product.id}}">Редактировать</a>
-        <a class="button-deffault button-deffault--warning">удалить</a>
+        <h3 class="products__title">{{product.name}}</h3>
+        <a class="button" routerLink="edit/{{product.id}}">Редактировать</a>
+        <a class="button button--warning" (click)="removeProductById(product)">Удалить</a>
     </li>
 </ul>

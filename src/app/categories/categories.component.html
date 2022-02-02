@@ -1,11 +1,11 @@
-<a class="button-deffault create" routerLink="create">Создать</a>
+<a class="button create" routerLink="create">Создать</a>
 <ul class="categories__list">
 
     <li class="categories__item" *ngFor="let category of categories">
         <h3 class="categories__title">{{category.name}}</h3>
 
-        <a class="button-deffault " routerLink="edit/{{category.id}}">Редактировать</a>
-        <a class="button-deffault button-deffault--warning">Удалить</a>
+        <a class="button " routerLink="edit/{{category.id}}">Редактировать</a>
+        <a class="button button--warning" (click)="removeCategoryById(category)">Удалить</a>
 
     </li>
 </ul>

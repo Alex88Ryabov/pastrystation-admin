@@ -1,1 +1,10 @@
-<p>authorization works!</p>
+<div class="authorization">
+    <form [formGroup]="form" class="authorization__form" (submit)="onSubmit()">
+        <p class="authorization__title">Авторизация</p>
+        <app-input [parentFormGroup]="form" [controlName]="'login'" placeholder="Введите логин:"></app-input>
+        <app-input-password [parentFormGroup]="form" [controlName]="'password'" placeholder="Введите пароль:">
+        </app-input-password>
+      <button class="button" type="submit" [disabled]="form.invalid">Войти</button>
+    </form>
+
+</div>

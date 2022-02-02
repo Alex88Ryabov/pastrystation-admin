@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
+import {environment} from '../../environments/environment';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -8,18 +10,36 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  products: any;
+    @Input() name: any;
+    products: any;
+    isInitForm: boolean = false;
+    constructor(private http: HttpClient) {
+    }
 
-  constructor(private http: HttpClient) { }
 
-  ngOnInit(): void {
-    this.http.get('assets/data/products.json')
-      .subscribe(products => {
-        this.products = products;     
-      })
-      
+    ngOnInit(): void {
+        this.http.get(`${environment.apiUrl}/api/products`)
+            .subscribe((res: any) => {
+                this.products = res;
+            });
+    }
 
-      
-      }
+    removeProductById(product: any): void {
+        const isDelete = confirm(`Вы действительно хотите удалить категорию ${product.name}`);
+
+        if (isDelete) {
+            this.http.delete(`${environment.apiUrl}/api/products/${product.id}`)
+                .subscribe((res: any) => {
+                    alert(res.message);
+                    this.http.get(`${environment.apiUrl}/api/products`)
+                        .subscribe((res: any) => {
+                            this.products = res;
+                        });
+
+                });
+
+        }
+
+    }
 
 }
