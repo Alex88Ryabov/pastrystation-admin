@@ -31,7 +31,6 @@ export class CategoriesEditComponent implements OnInit {
                 this.form.addControl('image', new FormControl(''));
 
                 this.form.controls['name'].setValidators([Validators.required]);
-                this.form.controls['image'].setValidators([Validators.required])
 
                 this.imgSrc = res.imageSrc;
 

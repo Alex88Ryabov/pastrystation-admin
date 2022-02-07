@@ -3,7 +3,7 @@
 <ng-container *ngIf="isInitForm">
     <div class="about-us container">
         <form class="about-us__form" [formGroup]="form" (submit)="onSubmit()">
-            <button class="about-us__btn-submit button" type="submit" [disabled]="form.invalid">Сохранить</button>
+            <button class="button create" type="submit" [disabled]="form.invalid">Сохранить</button>
 
             <div class="about-us__wrapper">
                 <div class="about-us__block-wrap">

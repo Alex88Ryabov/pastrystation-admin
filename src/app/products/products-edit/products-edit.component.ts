@@ -56,7 +56,6 @@ export class ProductsEditComponent implements OnInit {
                 this.form.addControl('info', new FormArray(formArrayInfo));
                 this.infoFormGroups = (this.form.controls['info'] as FormArray).controls;
                 this.form.controls['name'].setValidators([Validators.required]);
-                this.form.controls['image'].setValidators([Validators.required]);
                 this.form.controls['price'].setValidators([Validators.required]);
                 this.form.controls['categoryId'].setValidators([Validators.required]);
                 this.form.controls['description'].setValidators([Validators.required]);
