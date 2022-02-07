@@ -8,6 +8,8 @@ import { CategoriesComponent } from './categories/categories.component';
 import { CategoriesCreateComponent, CategoriesEditComponent } from "./categories/index";
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { AuthGuard } from './shared/services/auth.guard';
+import {AboutUsComponent} from './about-us/about-us.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/authorization', pathMatch: 'full' },
   {
@@ -20,7 +22,8 @@ const routes: Routes = [
       { path: 'products/edit/:id', component: ProductsEditComponent },
       { path: 'categories', component: CategoriesComponent },
       { path: 'categories/create', component: CategoriesCreateComponent },
-      { path: 'categories/edit/:id', component: CategoriesEditComponent }
+      { path: 'categories/edit/:id', component: CategoriesEditComponent },
+      { path: 'about-us', component: AboutUsComponent }
     ]
   },
   {

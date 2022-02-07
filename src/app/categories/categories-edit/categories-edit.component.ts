@@ -13,9 +13,8 @@ export class CategoriesEditComponent implements OnInit {
     currentCategoryId: string | null = null;
     form: FormGroup = new FormGroup({});
     isInitForm: boolean = false;
-
-    fileName: any;
-    file: any;
+    image: any;
+    imgSrc: any;
 
     constructor(
         private route: ActivatedRoute,
@@ -34,37 +33,26 @@ export class CategoriesEditComponent implements OnInit {
                 this.form.controls['name'].setValidators([Validators.required]);
                 this.form.controls['image'].setValidators([Validators.required])
 
-                this.fileName = res.imageName;
-                this.file = res.imageFile;
-
-                this.form.patchValue({
-                    image: {
-                        file: this.file,
-                        fileName: this.fileName
-                    }
-                });
+                this.imgSrc = res.imageSrc;
 
                 this.isInitForm = true;
             });
-
-        // this.http.post('get-category',
-        //   {
-        //     id: this.route.snapshot.paramMap.get('id')
-        //   }
-        // ).subscribe(category => {
-
-        // })
-
-
     }
 
     onSubmit(): void {
-        const formData = this.form.getRawValue();
+        const formData = new FormData();
+
+        formData.append('image', this.image, this.image.name)
+        formData.append('name', this.form.get('name')?.value)
         this.http.patch(`${environment.apiUrl}/api/categories/${this.currentCategoryId}`, formData)
             .subscribe((res: any) => {
                 alert(res.message)
                 this.router.navigate(['categories']).finally();
             },
                 error => console.log(error))
+    }
+
+    setImage(file: any): void {
+        this.image = file;
     }
 }

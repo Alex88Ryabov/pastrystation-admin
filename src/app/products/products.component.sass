@@ -1,10 +1,23 @@
 .products
+    h2
+        margin-top: 10px
+        margin-bottom: 0
     &__list
-        margin: 10px 15px
+        margin-bottom: 15px
+        list-style: none
         padding: 0
+        &-child
+            display: flex
+            align-items: center
+            margin-left: 10px
+    &__title
+        margin-right: auto
+
+        &:not(:first-child)
+            margin-top: 10px
     &__item
         display: flex
-        align-items: center
+        flex-direction: column
         border-bottom: 1px solid black
         a
             &:not(:last-child)

@@ -41,6 +41,7 @@
 
                     <ng-container *ngIf="categories">
                         <app-input-file [parentFormGroup]="form"
+                                        (onChange)="setImage($event)"
                                         [controlName]="'image'"
                                         label="Картинка">
                         </app-input-file>

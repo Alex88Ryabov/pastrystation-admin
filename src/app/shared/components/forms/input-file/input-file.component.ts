@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-input-file',
@@ -12,7 +13,10 @@ export class InputFileComponent implements OnInit {
     @Input() label: any;
     @Input() fileName: any;
     @Input() file: any;
-    isInitImg: boolean = true;
+    @Input() imgSrc: any;
+    @Output() onChange: EventEmitter<any> = new EventEmitter<any>();
+
+    env = environment;
 
     constructor() {
     }
@@ -23,6 +27,8 @@ export class InputFileComponent implements OnInit {
     onFileChange(evt: any) {
         const reader = new FileReader();
         if (evt.target.files && evt.target.files.length) {
+            this.onChange.emit(evt.target.files[0]);
+
             const [file] = evt.target.files;
             this.fileName = evt.target.files[0].name;
             reader.readAsDataURL(file);

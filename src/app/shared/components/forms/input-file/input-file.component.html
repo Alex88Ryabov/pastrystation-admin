@@ -3,9 +3,9 @@
         <p class="input-file__title">{{label}}</p>
         <input type="file" (change)="onFileChange($event)">
 
-        <div class="input-file__image" *ngIf="isInitImg">
-            <ng-container *ngIf="file; else icon">
-                <img width="100" src="{{file}}">
+        <div class="input-file__image" >
+            <ng-container *ngIf="file || imgSrc; else icon">
+                <img width="100" src="{{file ? file : env.apiUrl + '/' + imgSrc}}">
             </ng-container>
 
             <ng-template #icon>
@@ -13,6 +13,6 @@
             </ng-template>
         </div>
 
-        <p *ngIf="fileName" class="input-file__text">{{fileName}}</p>
+<!--        <p *ngIf="fileName" class="input-file__text">{{fileName}}</p>-->
     </label>
 </ng-container>

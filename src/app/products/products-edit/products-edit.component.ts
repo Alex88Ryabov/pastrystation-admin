@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Component, OnInit} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {environment} from '../../../environments/environment';
@@ -16,8 +16,8 @@ export class ProductsEditComponent implements OnInit {
     infoFormGroups: any;
     isInitForm: boolean = false;
     product: any;
-    fileName: any;
-    file: any;
+    image: any;
+    imgSrc: any;
     categories: any;
     description: any;
 
@@ -38,20 +38,20 @@ export class ProductsEditComponent implements OnInit {
             .subscribe((categories: any) => {
                 console.log(this.product);
                 this.categories = categories;
-                console.log(categories);
                 this.form.addControl('name', new FormControl(this.product.name));
                 this.form.addControl('image', new FormControl(''));
                 this.form.addControl('price', new FormControl(this.product.price));
                 this.form.addControl('categoryId', new FormControl(this.product.categoryId));
                 this.form.addControl('description', new FormControl(this.product.description));
+                this.imgSrc = this.product.imageSrc;
                 const formArrayInfo: any[] = [];
-
+                console.log(this.product);
                 this.product.info?.forEach((control: any) => {
                     formArrayInfo.push(new FormGroup({
                         title: new FormControl(control.title),
                         text: new FormControl(control.text)
-                    }))
-                })
+                    }));
+                });
 
                 this.form.addControl('info', new FormArray(formArrayInfo));
                 this.infoFormGroups = (this.form.controls['info'] as FormArray).controls;
@@ -61,41 +61,29 @@ export class ProductsEditComponent implements OnInit {
                 this.form.controls['categoryId'].setValidators([Validators.required]);
                 this.form.controls['description'].setValidators([Validators.required]);
 
-                this.fileName = this.product.imageName;
-                this.file = this.product.imageFile;
-
-
-                this.form.patchValue({
-                    image: {
-                        file: this.file,
-                        fileName: this.fileName
-                    }
-                });
 
                 this.isInitForm = true;
             });
-
-        // this.http.post('get-category',
-        //   {
-        //     id: this.route.snapshot.paramMap.get('id')
-        //   }
-        // ).subscribe(category => {
-
-        // })
 
 
     }
 
     onSubmit(): void {
-        const formData = this.form.getRawValue();
-        console.log(formData);
-        formData.info = formData.info.filter((obj: any) => obj.title || obj.text)
+        const formData = new FormData();
+        const info = this.form.getRawValue().info.filter((obj: any) => obj.title || obj.text);
+        formData.append('image', this.image, this.image.name);
+        formData.append('name', this.form.get('name')?.value);
+        formData.append('price', this.form.get('price')?.value);
+        formData.append('categoryId', this.form.get('categoryId')?.value);
+        formData.append('description', this.form.get('description')?.value);
+        formData.append('info', JSON.stringify(info));
+
         this.http.patch(`${environment.apiUrl}/api/products/${this.currentProductId}`, formData)
             .subscribe((res: any) => {
-                    alert(res.message)
+                    alert(res.message);
                     this.router.navigate(['products']).finally();
                 },
-                error => console.log(error))
+                error => console.log(error));
     }
 
     addNewAddressGroup() {
@@ -104,15 +92,19 @@ export class ProductsEditComponent implements OnInit {
         add.push(new FormGroup({
             title: new FormControl(''),
             text: new FormControl('')
-        }))
+        }));
     }
 
     deleteAddressGroup(index: number) {
-        const isDelete = confirm('Вы действительно хотите удалить поля?')
+        const isDelete = confirm('Вы действительно хотите удалить поля?');
         if (isDelete) {
             const add = this.form.get('info') as FormArray;
-            add.removeAt(index)
+            add.removeAt(index);
         }
+    }
+
+    setImage(file: any): void {
+        this.image = file;
     }
 }
 

@@ -35,9 +35,9 @@
                         </app-textarea>
                     </div>
                     <app-input-file [parentFormGroup]="form"
+                                    (onChange)="setImage($event)"
                                     [controlName]="'image'"
-                                    [file]="file"
-                                    [fileName]="fileName"
+                                    [imgSrc]="imgSrc"
                                     label="Картинка">
                     </app-input-file>
                 </div>

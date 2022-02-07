@@ -9,6 +9,7 @@
         <div class="categories-create__wrap">
             <app-input-file [parentFormGroup]="form"
                             [controlName]="'image'"
+                            (onChange)="setImage($event)"
                             label="Картинка">
             </app-input-file>
         </div>

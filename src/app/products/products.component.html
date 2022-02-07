@@ -1,8 +1,32 @@
-<a class="button create" routerLink="create">Создать</a>
-<ul class="products__list">
-    <li class="products__item" *ngFor="let product of products">
-        <h3 class="products__title">{{product.name}}</h3>
-        <a class="button" routerLink="edit/{{product.id}}">Редактировать</a>
-        <a class="button button--warning" (click)="removeProductById(product)">Удалить</a>
-    </li>
-</ul>
+<div class="products container">
+    <a class="button create" routerLink="create">Создать</a>
+
+    <!--        <ul class="products__list">-->
+    <!--            <li class="products__item" *ngFor="let product of products">-->
+    <!--                <h3 class="products__title">{{product.name}}</h3>-->
+    <!--                <a class="button" routerLink="edit/{{product.id}}">Редактировать</a>-->
+    <!--                <a class="button button&#45;&#45;warning" (click)="removeProductById(product)">Удалить</a>-->
+    <!--            </li>-->
+    <!--        </ul>-->
+    <ul class="products__list">
+        <li class="products__item"
+            *ngFor="let category of categories">
+            <h2>
+                {{category.name}}
+            </h2>
+
+            <ul class="products__list">
+                <li *ngFor="let product of products" class="products__list-child">
+                    <ng-container *ngIf="category.id === product.categoryId">
+                        <h3 class="products__title">{{product.name}}</h3>
+                        <div class="products__btns">
+                            <a class="button" routerLink="edit/{{product.id}}">Редактировать</a>
+                            <a class="button button--warning" (click)="removeProductById(product)">Удалить</a>
+
+                        </div>
+                    </ng-container>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>

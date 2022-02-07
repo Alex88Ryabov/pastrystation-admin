@@ -12,6 +12,7 @@ import {AuthorizationComponent} from './authorization/authorization.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TokenInterceptor} from './shared/services/token-interceptor.service';
 import {HashLocationStrategy, LocationStrategy} from '@angular/common';
+import {AboutUsModule} from './about-us/about-us.module';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import {HashLocationStrategy, LocationStrategy} from '@angular/common';
         RouterModule,
         CategoriesModule,
         ProductsModule,
+        AboutUsModule,
         SharedModule,
         HttpClientModule,
         BrowserAnimationsModule,

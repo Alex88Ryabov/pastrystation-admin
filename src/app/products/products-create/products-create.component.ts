@@ -16,6 +16,8 @@ export class ProductsCreateComponent implements OnInit {
     form: FormGroup;
     infoFormGroups: any;
     categories: any;
+    image: any;
+    imgSrc: any;
 
     constructor(private http: HttpClient,
                 private router: Router) {
@@ -37,9 +39,10 @@ export class ProductsCreateComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.form.getRawValue());
+        const formData = new FormData();
 
-        const formData = this.form.getRawValue();
+        formData.append('image', this.image, this.image.name)
+        formData.append('name', this.form.get('name')?.value)
         this.http.post(`${environment.apiUrl}/api/products`, formData)
             .subscribe((res: any) => {
                 alert(res.message);
@@ -66,5 +69,9 @@ export class ProductsCreateComponent implements OnInit {
             const add = this.form.get('info') as FormArray;
             add.removeAt(index)
         }
+    }
+
+    setImage(file: any): void {
+        this.image = file;
     }
 }
