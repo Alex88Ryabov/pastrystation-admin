@@ -36,7 +36,6 @@ export class ProductsEditComponent implements OnInit {
                 mergeMap(() => this.http.get(`${environment.apiUrl}/api/categories`))
             )
             .subscribe((categories: any) => {
-                console.log(this.product);
                 this.categories = categories;
                 this.form.addControl('name', new FormControl(this.product.name));
                 this.form.addControl('image', new FormControl(''));
@@ -70,7 +69,11 @@ export class ProductsEditComponent implements OnInit {
     onSubmit(): void {
         const formData = new FormData();
         const info = this.form.getRawValue().info.filter((obj: any) => obj.title || obj.text);
-        formData.append('image', this.image, this.image.name);
+        if (this.image) {
+            formData.append('image', this.image, this.image.name);
+        } else {
+            formData.append('image', this.product.imageSrc);
+        }
         formData.append('name', this.form.get('name')?.value);
         formData.append('price', this.form.get('price')?.value);
         formData.append('categoryId', this.form.get('categoryId')?.value);
@@ -104,6 +107,7 @@ export class ProductsEditComponent implements OnInit {
 
     setImage(file: any): void {
         this.image = file;
+        console.log(this.image);
     }
 }
 

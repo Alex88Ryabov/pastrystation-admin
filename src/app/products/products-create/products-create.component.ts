@@ -16,6 +16,7 @@ export class ProductsCreateComponent implements OnInit {
     form: FormGroup;
     infoFormGroups: any;
     categories: any;
+
     image: any;
     imgSrc: any;
 
@@ -32,17 +33,24 @@ export class ProductsCreateComponent implements OnInit {
                     image: new FormControl('', [Validators.required]),
                     price: new FormControl('', [Validators.required]),
                     categoryId: new FormControl(this.categories[0].id, [Validators.required]),
-                    description: new FormControl('', [Validators.required])
+                    description: new FormControl('', [Validators.required]),
+                    info: new FormArray([])
                 });
                 console.log(this.categories);
             });
     }
 
     onSubmit() {
+        console.log(this.form.getRawValue());
         const formData = new FormData();
+        const info = this.form.getRawValue().info.filter((obj: any) => obj.title || obj.text);
+        formData.append('image', this.image, this.image.name);
+        formData.append('name', this.form.get('name')?.value);
+        formData.append('price', this.form.get('price')?.value);
+        formData.append('categoryId', this.form.get('categoryId')?.value);
+        formData.append('description', this.form.get('description')?.value);
+        formData.append('info', JSON.stringify(info));
 
-        formData.append('image', this.image, this.image.name)
-        formData.append('name', this.form.get('name')?.value)
         this.http.post(`${environment.apiUrl}/api/products`, formData)
             .subscribe((res: any) => {
                 alert(res.message);
@@ -53,21 +61,21 @@ export class ProductsCreateComponent implements OnInit {
 
     addNewAddressGroup() {
         if (!this.form.get('info')) {
-            this.form.addControl('info', new FormArray([]))
+            this.form.addControl('info', new FormArray([]));
         }
         const add = this.form.get('info') as FormArray;
         add.push(new FormGroup({
             title: new FormControl(''),
             text: new FormControl('')
-        }))
+        }));
         this.infoFormGroups = (this.form.controls['info'] as FormArray).controls;
     }
 
     deleteAddressGroup(index: number) {
-        const isDelete = confirm('Вы действительно хотите удалить поля?')
+        const isDelete = confirm('Вы действительно хотите удалить поля?');
         if (isDelete) {
             const add = this.form.get('info') as FormArray;
-            add.removeAt(index)
+            add.removeAt(index);
         }
     }
 
