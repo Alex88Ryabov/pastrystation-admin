@@ -1,10 +1,12 @@
 @import './app/shared/styles/fonts'
+@import ./src/app/shared/styles/mixins
 
 
 body
     margin: 0
-    font-family: "Stratos-regular", sans-serif
-
+    font-family: Stratos-regular, sans-serif
+h4,h3,h2,h1
+    font-family: Stratos-bold
 .container
     padding: 25px
 
@@ -36,3 +38,6 @@ body
 .create
     display: inline-block
     padding: 10px 30px
++r(1199)
+    .container
+        padding: 15px

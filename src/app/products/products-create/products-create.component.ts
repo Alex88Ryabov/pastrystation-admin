@@ -38,6 +38,13 @@ export class ProductsCreateComponent implements OnInit {
                 });
                 console.log(this.categories);
             });
+        // fetch('http://localhost:5000/uploads/07022022-143428_745-desserts.png', {mode: 'no-cors'})
+        //     .then(res => {
+        //         console.log(res);
+        //     })
+        //     .catch(err => {
+        //         console.log(err);
+        //     })
     }
 
     onSubmit() {
